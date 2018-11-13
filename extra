@@ -1,0 +1,40 @@
+"""
+Teoria dos Grafos
+Exercício Extra 
+Aluno: Gregory Henrique Moreira dos Santos Pereira
+Matrícula: 161057600020
+"""
+
+import networkx as nx
+import matplotlib.pyplot as plt
+
+rna = []
+dbn = []
+G = nx.Graph()
+forma_par = list()
+forma_loop = list()
+
+
+if __name__ == '__main__':
+	rna = input("Informe a sequencia de RNA: \n")
+	dbn = input("Informe a sequencia dbn: \n")
+	#os nós serão adicionados ao grafo baseado em sua posição na string, e por esse indice identificados
+	forma_par.clear()
+	forma_loop.clear()
+	G.clear()
+	pilha = list()
+	for i in range(len(rna)):
+		G.add_node(i)
+		#adiona uma caracteristica ao vertice, nesse caso o valor dele
+
+		if i > 0: G.add_edge(i-1,i)
+		if dbn[i] == '(':
+			pilha.append(i)
+			forma_par.append(i)
+		elif dbn[i] == ')':
+			G.add_edge(pilha[len(pilha) -1], i)
+			pilha.pop()
+			forma_par.append(i)
+		else: forma_loop.append(i)
+
+#imprime e salva o grafo em forma de .png
